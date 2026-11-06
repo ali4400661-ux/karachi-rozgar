@@ -1,0 +1,1159 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ur" dir="rtl" id="htmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Karachi Rozgar - All-in-One VIP Service & Emergency Hub</title>
+    <!-- PWA Manifest & Theme Meta Tags -->
+    <meta name="theme-color" content="#0284c7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Karachi Rozgar">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --box-bg: #ffffff;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --input-bg: #f8fafc;
+            --primary: #0284c7;
+            --primary-gradient: linear-gradient(135deg, #0284c7, #4f46e5);
+            --success: #16a34a;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+        }
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-color: #f1f5f9;
+            --box-bg: #1e293b;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --input-bg: #0f172a;
+        }
+        body {
+            font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        header {
+            background: var(--primary-gradient);
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .header-btns {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            gap: 8px;
+        }
+        .top-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            font-family: inherit;
+            backdrop-filter: blur(5px);
+            transition: background 0.2s;
+        }
+        .top-btn:hover { background: rgba(255, 255, 255, 0.35); }
+        
+        header h1 { margin: 0; font-size: 26px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        header p { margin: 10px 0 0; font-size: 14px; color: #f1f5f9; opacity: 0.95; }
+        
+        .container {
+            width: 92%;
+            max-width: 1000px;
+            margin: 25px auto;
+        }
+        
+        .install-banner {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(22,163,74,0.3);
+            display: none; /* Show dynamically via JS if prompt available */
+        }
+        .install-banner button {
+            background: white;
+            color: #16a34a;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .how-it-works {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .step-card {
+            background: var(--box-bg);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .step-card span {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .step-card h4 { margin: 5px 0; font-size: 15px; color: var(--text-color); }
+        .step-card p { margin: 0; font-size: 12px; opacity: 0.8; }
+
+        .box {
+            background: var(--box-bg);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            margin-bottom: 25px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 8px 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+        button.btn-main {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 8px;
+            width: 100%;
+            font-weight: bold;
+            font-family: inherit;
+            box-shadow: 0 2px 6px rgba(22, 163, 74, 0.2);
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        button.btn-main:hover { background-color: #15803d; }
+        button.btn-main:active { transform: scale(0.99); }
+        button.btn-main:disabled { background-color: #94a3b8; cursor: not-allowed; box-shadow: none; }
+        
+        .share-btn {
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(22,163,74,0.25);
+            font-family: inherit;
+            transition: transform 0.1s, background-color 0.2s;
+        }
+        .share-btn:hover { background-color: #15803d; }
+
+        .whatsapp-direct-box {
+            background: #f0fdf4;
+            border: 2px dashed #bbf7d0;
+            padding: 18px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            color: #166534;
+        }
+        [data-theme="dark"] .whatsapp-direct-box {
+            background: rgba(22, 101, 52, 0.15);
+            border-color: #166534;
+            color: #4ade80;
+        }
+        .whatsapp-direct-btn {
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            font-family: inherit;
+            box-shadow: 0 2px 6px rgba(22,163,74,0.2);
+        }
+        .search-box-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .voice-btn {
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.2);
+            transition: background-color 0.2s;
+        }
+        .voice-btn.listening {
+            background-color: var(--warning);
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .filter-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .filter-row select, .filter-row input {
+            flex: 1;
+            min-width: 180px;
+            margin: 0;
+        }
+        .location-detect-row {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .gps-btn {
+            background-color: #06b6d4;
+            color: #fff;
+            border: none;
+            padding: 9px 16px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 2px 6px rgba(6, 182, 212, 0.2);
+        }
+        .gps-btn:hover { background-color: #0891b2; }
+
+        .workers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .worker-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            text-align: center;
+            border-top: 5px solid #16a34a;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+        .worker-card:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .vip-card { border-top: 5px solid #7c3aed !important; }
+        .emergency-card { border-top: 5px solid #dc2626 !important; }
+        
+        .worker-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .worker-card h3 { margin: 10px 0 6px; color: var(--primary); display: inline-block; font-size: 18px; }
+        .vip-card h3 { color: #7c3aed !important; }
+        .emergency-card h3 { color: #dc2626 !important; }
+        .worker-card p { margin: 6px 0; font-size: 13.5px; opacity: 0.85; text-align: right; }
+        
+        .badge-verified {
+            background-color: var(--primary);
+            color: white;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+        .badge-top {
+            background-color: #f59e0b;
+            color: #000;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+        .fee-notice {
+            background: #ecfdf5;
+            color: #065f46;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            margin-bottom: 25px;
+            border: 1px solid #a7f3d0;
+            text-align: center;
+            line-height: 1.6;
+        }
+        [data-theme="dark"] .fee-notice {
+            background: rgba(6, 95, 70, 0.2);
+            border-color: #065f46;
+            color: #34d399;
+        }
+        .booking-btn {
+            background-color: #f97316;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 2px 6px rgba(249, 115, 22, 0.2);
+            font-family: inherit;
+            transition: background-color 0.2s;
+        }
+        .booking-btn:hover { background-color: #ea580c; }
+        
+        .card-share-btn {
+            background-color: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 6px;
+            font-family: inherit;
+            transition: background-color 0.2s;
+        }
+        .card-share-btn:hover { background-color: #0284c7; }
+
+        .review-section {
+            background: rgba(0,0,0,0.02);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 14px;
+            text-align: right;
+            font-size: 12.5px;
+        }
+        [data-theme="dark"] .review-section { background: rgba(255,255,255,0.02); }
+        
+        .review-section select, .review-section input {
+            padding: 8px;
+            font-size: 12px;
+            margin: 4px 0;
+        }
+        .review-submit-btn {
+            background-color: #f59e0b;
+            color: #000;
+            border: none;
+            padding: 8px 10px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 6px;
+            font-family: inherit;
+        }
+        .load-more-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .load-more-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+        }
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background-color: #25d366;
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(37,211,102,0.4);
+            z-index: 1000;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .floating-whatsapp:hover { transform: scale(1.08); }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: #0f172a;
+            color: #94a3b8;
+            margin-top: 50px;
+            font-size: 13px;
+        }
+        
+        #otpModal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: var(--box-bg);
+            color: var(--text-color);
+            padding: 30px;
+            border-radius: 14px;
+            width: 90%;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/923161010852?text=Salam Admin! Mujhe Karachi Rozgar Hub ke hawale se maloomat chahiye:" class="floating-whatsapp" target="_blank" title="Admin se WhatsApp par rabta karein">💬</a>
+
+    <header>
+        <div class="header-btns">
+            <button class="top-btn" id="langToggleBtn" onclick="toggleLanguage()">English / اردو</button>
+            <button class="top-btn" id="themeToggleBtn" onclick="toggleTheme()">🌙</button>
+        </div>
+        <h1 id="mainTitle">Karachi Rozgar - All-in-One VIP Service & Emergency Hub</h1>
+        <p id="mainSubtitle">Mistri, Mazdoor, Emergency Electrician/Plumber, AC Mechanic aur Event Transport</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- PWA Install Prompt Banner -->
+        <div id="installBanner" class="install-banner">
+            <div>
+                <strong style="display:block; font-size:15px;">📱 Karachi Rozgar App Install Karein</strong>
+                <span style="font-size:12.5px; opacity:0.9;">Apne mobile ki home screen par aik click mein app lagayein!</span>
+            </div>
+            <button id="installBtn">Install App</button>
+        </div>
+
+        <div class="how-it-works">
+            <div class="step-card">
+                <span>1</span>
+                <h4 id="step1Title">Service Chunein</h4>
+                <p id="step1Sub">Apni zaroorat ke mutabiq category ya ilaqa select karein.</p>
+            </div>
+            <div class="step-card">
+                <span>2</span>
+                <h4 id="step2Title">WhatsApp Rabta (Free)</h4>
+                <p id="step2Sub">Direct karigar ya service provider se free baat karein.</p>
+            </div>
+            <div class="step-card">
+                <span>3</span>
+                <h4 id="step3Title">Kaam Karwayen & Review</h4>
+                <p id="step3Sub">Kaam mukammal hone par apna honest review dein.</p>
+            </div>
+        </div>
+
+        <button class="share-btn" id="shareBtnText" onclick="shareOnWhatsApp()">📢 Yeh shandar website WhatsApp par share karein</button>
+
+        <div class="fee-notice" id="feeNoticeText">
+            📌 <strong>Asool:</strong> Customer ke liye rabta bilkul <strong>FREE</strong> hai!<br>
+            🛠️ <strong>Registered Services ke liye:</strong> Har kaam milne par sirf <strong>20 Rupay</strong> commission EasyPaisa/JazzCash karein: <strong>03161010852</strong> (Manual screenshot verification sab se behtareen aur asan tareeqa hai).
+        </div>
+
+        <div class="box">
+            <h3 id="searchHeading" style="margin-top:0; font-size:18px;">🔍 Talash Karein (Naam, Awaz ya Service ke zariye)</h3>
+            
+            <div class="search-box-wrapper" style="display:flex; gap:10px; align-items:center;">
+                <input type="text" id="searchNameInput" placeholder="Naam ya kaam ka lafz likhein (misal: Usman, Coaster)..." onkeyup="resetPaginationAndFilter()" style="margin:0;">
+                <button type="button" class="voice-btn" id="voiceSearchBtn" onclick="startVoiceSearch()" title="Bol kar talash karein">🎤</button>
+            </div>
+
+            <div class="filter-row" style="margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap;">
+                <select id="filterLocation" onchange="resetPaginationAndFilter()">
+                    <option value="">Tamam Ilaqay (Karachi)</option>
+                    <option value="Baldia Town">Baldia Town</option>
+                    <option value="Orangi Town">Orangi Town</option>
+                    <option value="Saddar">Saddar</option>
+                    <option value="Gulshan-e-Iqbal">Gulshan-e-Iqbal</option>
+                    <option value="Nazimabad">Nazimabad</option>
+                    <option value="Site / Shershah">Site / Shershah</option>
+                </select>
+
+                <select id="filterCategory" onchange="resetPaginationAndFilter()">
+                    <option value="">Tamam Categories Dekhein</option>
+                    <option value="Mistri">Mistri</option>
+                    <option value="Mazdoor">Mazdoor</option>
+                    <option value="Electrician">Electrician</option>
+                    <option value="Plumber">Plumber</option>
+                    <option value="Painter">Painter</option>
+                    <option value="🚨 Emergency Electrician / Plumber (24/7)">🚨 Emergency Electrician / Plumber (24/7)</option>
+                    <option value="❄️ AC Mechanic aur Gas Refilling">❄️ AC Mechanic aur Gas Refilling</option>
+                    <option value="💧 Water Tank Cleaning Service">💧 Water Tank Cleaning Service</option>
+                    <option value="🍲 Shadi ke Degi Bawarchi / Catering">🍲 Shadi ke Degi Bawarchi / Catering</option>
+                    <option value="🚚 Pick & Drop / Loader Rickshaw">🚚 Pick & Drop / Loader Rickshaw</option>
+                    <option value="💍 Shadi Bus / Coaster (VIP)">💍 Shadi Bus / Coaster (VIP)</option>
+                    <option value="🚗 Shadi VIP Car (Saji Hui)">🚗 Shadi VIP Car (Saji Hui)</option>
+                </select>
+
+                <select id="filterSort" onchange="resetPaginationAndFilter()">
+                    <option value="newest">Naye Tareen (Newest First)</option>
+                    <option value="topRated">Top Rated ⭐</option>
+                </select>
+            </div>
+
+            <div class="location-detect-row">
+                <button type="button" class="gps-btn" id="gpsBtnText" onclick="detectUserLocation()">📍 Mere Qareeb Tareen Ilaqa Talaash Karein (GPS)</button>
+                <span id="gpsStatusText" style="font-size: 12px; opacity: 0.8;"></span>
+            </div>
+        </div>
+
+        <div class="box">
+            <h2 id="formHeading" style="margin-top:0; font-size:20px;">✨ Apni Service ya Profile Yahan Darj Karein</h2>
+            <form id="workerForm">
+                <input type="text" id="name" placeholder="Aap ka naam ya business ka naam (misal: Al-Madina Service)" required>
+                
+                <select id="category" required>
+                    <option value="">Shuba ya service ki qisam muntakhib karein</option>
+                    <option value="Mistri">Mistri</option>
+                    <option value="Mazdoor">Mazdoor</option>
+                    <option value="Electrician">Electrician</option>
+                    <option value="Plumber">Plumber</option>
+                    <option value="Painter">Painter</option>
+                    <option value="🚨 Emergency Electrician / Plumber (24/7)">🚨 Emergency Electrician / Plumber (24/7)</option>
+                    <option value="❄️ AC Mechanic aur Gas Refilling">❄️ AC Mechanic aur Gas Refilling</option>
+                    <option value="💧 Water Tank Cleaning Service">💧 Water Tank Cleaning Service</option>
+                    <option value="🍲 Shadi ke Degi Bawarchi / Catering">🍲 Shadi ke Degi Bawarchi / Catering</option>
+                    <option value="🚚 Pick & Drop / Loader Rickshaw">🚚 Pick & Drop / Loader Rickshaw</option>
+                    <option value="💍 Shadi Bus / Coaster (VIP)">💍 Shadi Bus / Coaster (VIP)</option>
+                    <option value="🚗 Shadi VIP Car (Saji Hui)">🚗 Shadi VIP Car (Saji Hui)</option>
+                </select>
+
+                <select id="location" required>
+                    <option value="">Apna ilaqa muntakhib karein (Karachi)</option>
+                    <option value="Baldia Town">Baldia Town</option>
+                    <option value="Orangi Town">Orangi Town</option>
+                    <option value="Saddar">Saddar</option>
+                    <option value="Gulshan-e-Iqbal">Gulshan-e-Iqbal</option>
+                    <option value="Nazimabad">Nazimabad</option>
+                    <option value="Site / Shershah">Site / Shershah</option>
+                </select>
+
+                <input type="text" id="rate" placeholder="Muawza ya rate (misal: 1500 rupay visit / tay shuda)" required>
+                <input type="tel" id="phone" placeholder="WhatsApp number (misal: 03001234567)" required>
+                
+                <label style="font-size: 13px; display: block; margin-top: 10px; font-weight: bold;">📷 Kaam ya gaari ki tasveer muntakhib karein:</label>
+                <input type="file" id="workerImage" accept="image/*">
+
+                <label style="font-size: 13px; display: block; margin-top: 10px; font-weight: bold;">💳 20 rupay commission ka screenshot (EasyPaisa/JazzCash 03161010852):</label>
+                <input type="file" id="commissionProofImage" accept="image/*">
+
+                <textarea id="details" placeholder="Tafseel (misal: kaam ki tafseel ya gaari ki qisam waghera)"></textarea>
+                
+                <button type="submit" class="btn-main" id="submitBtnText" style="margin-top: 10px;">Muft Mein Register Karein</button>
+            </form>
+
+            <div class="whatsapp-direct-box">
+                <p style="margin: 0; font-weight: bold;" id="waBoxTitle">📱 Kya aap khud form nahi bhar sakte?</p>
+                <p style="margin: 6px 0 12px; font-size: 13px; opacity: 0.9;" id="waBoxSub">Hamein WhatsApp par apni tafseelat bhejein, hum khud aap ko list mein shamil kar denge!</p>
+                <a href="https://wa.me/923161010852?text=Salam Admin! Main apni service Karachi Rozgar par register karwana chahta hoon. Meri tafseelat yeh hain:" class="whatsapp-direct-btn" target="_blank" id="waBoxBtn">WhatsApp Par Rabta Karein</a>
+            </div>
+        </div>
+
+        <h2 id="listHeading" style="font-size:22px; margin-bottom:15px;">📋 Dastyab Khidmat aur Booking ki List</h2>
+        <div class="workers-grid" id="workersContainer">
+            <p style="text-align:center; color: #777; grid-column: 1/-1;" id="loadingText">⏳ Loading...</p>
+        </div>
+
+        <div class="load-more-container" id="loadMoreContainer" style="display: none;">
+            <button class="load-more-btn" id="loadMoreBtnText" onclick="loadMoreWorkers()">Mazeeed Dekhein (Load More)</button>
+        </div>
+
+    </div>
+
+    <!-- Customer OTP Verification Modal -->
+    <div id="otpModal">
+        <div class="modal-content">
+            <h3 style="margin-top:0; color:var(--success);">📲 Customer Verification</h3>
+            <p id="otpInfoText" style="font-size:12px; opacity:0.8;">Fake reviews se bachne ke liye apna WhatsApp number likhein:</p>
+            <input type="tel" id="customerPhoneInput" placeholder="Misal: 03001234567">
+            <div id="otpStepTwo" style="display:none; margin-top:10px;">
+                <p style="font-size:11px; opacity:0.8;">Verification code enter karein:</p>
+                <input type="text" id="otpCodeInput" placeholder="Code likhein (misal: 1234)..." value="1234">
+            </div>
+            <button class="btn-main" id="otpActionBtn" onclick="handleOtpAction()" style="margin-top:10px;">Code Bhejein</button>
+            <button onclick="closeOtpModal()" style="background:#dc2626; color:white; border:none; padding:10px; border-radius:8px; width:100%; margin-top:8px; cursor:pointer; font-family:inherit; font-weight:bold;">Mansookh Karein</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Karachi Rozgar Service Hub. Tamam huqooq mehfooz hain.</p>
+    </footer>
+
+    <script>
+        const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbx3NLatXjp3IXj8J5E1uZrl-tOcXZvmmNwKslgP-TiS2BbJNUg6MPAKOReTvvJhlBwr/exec";
+
+        let workers = [];
+        let currentLang = 'ur';
+        let itemsToShow = 6;
+        let detectedUserArea = "";
+        let pendingReviewData = null;
+        let deferredPrompt = null;
+
+        // PWA Install Event Listener
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBanner').style.display = 'flex';
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let installBtn = document.getElementById('installBtn');
+            if (installBtn) {
+                installBtn.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        let choiceResult = await deferredPrompt.userChoice;
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted the install prompt');
+                        }
+                        deferredPrompt = null;
+                        document.getElementById('installBanner').style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        window.onload = function() {
+            if (localStorage.getItem("karachiTheme") === "dark") {
+                document.documentElement.setAttribute("data-theme", "dark");
+                document.getElementById('themeToggleBtn').innerText = "☀️";
+            }
+            fetchWorkers();
+        };
+
+        window.detectUserLocation = function() {
+            let statusText = document.getElementById('gpsStatusText');
+            if (!navigator.geolocation) {
+                alert("Aap ka browser GPS location support nahi karta.");
+                return;
+            }
+            statusText.innerText = "Location detect ki ja rahi hai...";
+            navigator.geolocation.getCurrentPosition(position => {
+                let lat = position.coords.latitude;
+                let lon = position.coords.longitude;
+                
+                if (lat > 24.92) {
+                    detectedUserArea = "Nazimabad";
+                } else if (lon < 67.02 && lat < 24.88) {
+                    detectedUserArea = "Saddar";
+                } else if (lon > 67.06) {
+                    detectedUserArea = "Gulshan-e-Iqbal";
+                } else if (lat < 24.85) {
+                    detectedUserArea = "Site / Shershah";
+                } else {
+                    detectedUserArea = "Orangi Town";
+                }
+
+                document.getElementById('filterLocation').value = detectedUserArea;
+                statusText.innerText = `Qareeb Tareen Ilaqa: ${detectedUserArea} select kar diya gaya hai!`;
+                resetPaginationAndFilter();
+            }, () => {
+                statusText.innerText = "Location access nahi mil saki. Baraye karam khud select karein.";
+            });
+        }
+
+        window.toggleTheme = function() {
+            let currentTheme = document.documentElement.getAttribute("data-theme");
+            if (currentTheme === "dark") {
+                document.documentElement.removeAttribute("data-theme");
+                localStorage.setItem("karachiTheme", "light");
+                document.getElementById('themeToggleBtn').innerText = "🌙";
+            } else {
+                document.documentElement.setAttribute("data-theme", "dark");
+                localStorage.setItem("karachiTheme", "dark");
+                document.getElementById('themeToggleBtn').innerText = "☀️";
+            }
+        }
+
+        window.closeOtpModal = function() {
+            document.getElementById('otpModal').style.display = 'none';
+            pendingReviewData = null;
+        }
+
+        window.toggleLanguage = function() {
+            currentLang = currentLang === 'ur' ? 'roman' : 'ur';
+            let htmlRoot = document.getElementById('htmlRoot');
+            htmlRoot.dir = currentLang === 'ur' ? 'rtl' : 'ltr';
+            
+            if (currentLang === 'roman') {
+                document.getElementById('mainTitle').innerText = "Karachi Rozgar - All-in-One VIP Service & Emergency Hub";
+                document.getElementById('mainSubtitle').innerText = "Mistri, Mazdoor, Emergency Electrician/Plumber, AC Mechanic & Event Transport";
+                document.getElementById('shareBtnText').innerText = "📢 Yeh Shandar Website WhatsApp Par Share Karein";
+                document.getElementById('feeNoticeText').innerHTML = `📌 <strong>Asool:</strong> Customer ke liye rabta bilkul <strong>FREE</strong> hai!<br>🛠️ <strong>Registered Services ke liye:</strong> Har kaam milne par sirf <strong>20 Rupay</strong> commission EasyPaisa/JazzCash karein: <strong>03161010852</strong> (Manual screenshot verification sab se behtareen aur asan tareeqa hai).`;
+                document.getElementById('searchHeading').innerText = "🔍 Talash Karein (Naam, Awaz ya Service ke zariye)";
+                document.getElementById('gpsBtnText').innerText = "📍 Mere Qareeb Tareen Ilaqa Talaash Karein (GPS)";
+                document.getElementById('formHeading').innerText = "✨ Apni Service ya Profile Yahan Darj Karein";
+                document.getElementById('submitBtnText').innerText = "Muft Mein Register Karein";
+                document.getElementById('waBoxTitle').innerText = "📱 Kya aap khud form nahi bhar sakte?";
+                document.getElementById('waBoxSub').innerText = "Hamein WhatsApp par tafseelat bhejein, hum khud list mein shamil kar denge!";
+                document.getElementById('waBoxBtn').innerText = "WhatsApp Par Rabta Karein";
+                document.getElementById('listHeading').innerText = "📋 Dastyab Khidmat aur Booking ki List";
+                document.getElementById('loadMoreBtnText').innerText = "Mazeeed Dekhein (Load More)";
+                document.getElementById('langToggleBtn').innerText = "اردو / English";
+                
+                document.getElementById('step1Title').innerText = "Service Chunein";
+                document.getElementById('step1Sub').innerText = "Apni zaroorat ke mutabiq category ya ilaqa select karein.";
+                document.getElementById('step2Title').innerText = "WhatsApp Rabta (Free)";
+                document.getElementById('step2Sub').innerText = "Direct karigar ya service provider se free baat karein.";
+                document.getElementById('step3Title').innerText = "Kaam Karwayen & Review";
+                document.getElementById('step3Sub').innerText = "Kaam mukammal hone par apna honest review dein.";
+            } else {
+                document.getElementById('mainTitle').innerText = "کراچی روزگار - آل ان ون VIP سروس اور ایمرجنسی ہب";
+                document.getElementById('mainSubtitle').innerText = "مستری، مزدور، ہنگامی الیکٹریشن/پلمبر، اے سی مکینک اور ایونٹ ٹرانسپورٹ";
+                document.getElementById('shareBtnText').innerText = "📢 یہ شاندار ویب سائٹ واٹس ایپ پر شیئر کریں";
+                document.getElementById('feeNoticeText').innerHTML = `📌 <strong>اصول:</strong> کسٹمر کے لیے رابطہ بالکل <strong>فری</strong> ہے!<br>🛠️ <strong>رجسٹرڈ سروسز کے لیے اصول:</strong> ہر کام ملنے پر آپ کو صرف <strong>20 روپے</strong> کمیشن ایزی پیسہ/جائز کیش کرنا ہوگا: <strong>03161010852</strong> (اسکرین شاٹ تصدیق سب سے بہترین طریقہ ہے)۔`;
+                document.getElementById('searchHeading').innerText = "🔍 تلاش کریں (نام، آواز یا سروس کے ذریعے)";
+                document.getElementById('gpsBtnText').innerText = "📍 میرے قریب ترین علاقہ تلاش کریں (GPS)";
+                document.getElementById('formHeading').innerText = "✨ اپنی سروس یا پروفائل یہاں درج کریں";
+                document.getElementById('submitBtnText').innerText = "مفت میں رجسٹر کریں";
+                document.getElementById('waBoxTitle').innerText = "📱 کیا آپ خود فارم نہیں بھر سکتے؟";
+                document.getElementById('waBoxSub').innerText = "ہمیں واٹس ایپ پر اپنی تفصیلات بھیجیں، ہم خود آپ کو لسٹ میں شامل कर دیں گے!";
+                document.getElementById('waBoxBtn').innerText = "واٹس ایپ پر رابطہ کریں";
+                document.getElementById('listHeading').innerText = "📋 دستیاب خدمات اور بکنگ کی لسٹ";
+                document.getElementById('loadMoreBtnText').innerText = "مزید دیکھیں (Load More)";
+                document.getElementById('langToggleBtn').innerText = "English / اردو";
+                
+                document.getElementById('step1Title').innerText = "سروس چنیں";
+                document.getElementById('step1Sub').innerText = "اپنی ضرورت کے مطابق کیٹیگری یا علاقہ سلیکٹ کریں۔";
+                document.getElementById('step2Title').innerText = "واٹس ایپ رابطہ (فری)";
+                document.getElementById('step2Sub').innerText = "ڈائریکٹ کاریگر یا سروس پرووائیڈر سے فری بات کریں۔";
+                document.getElementById('step3Title').innerText = "کام کروائیں & ریویو";
+                document.getElementById('step3Sub').innerText = "کام مکمل ہونے پر اپنا ایماندارانہ ریویو دیں۔";
+            }
+            filterWorkers();
+        }
+
+        window.shareOnWhatsApp = function() {
+            let siteUrl = window.location.href;
+            let shareText = encodeURIComponent("Karachi ke behtareen rozgar, mistri, mazdoor, emergency electrician aur AC mechanic ki khidmat ke liye is website par visit karein:\n" + siteUrl);
+            window.open("https://api.whatsapp.com/send?text=" + shareText, "_blank");
+        }
+
+        window.shareWorkerCard = function(workerName, workerCategory, workerPhone, workerRate) {
+            let shareText = encodeURIComponent(`🛠️ *Karachi Rozgar Hub - Tasdeeq Shuda Service*\n\n*Naam:* ${workerName}\n*Shuba:* ${workerCategory}\n*Muawza:* ${workerRate}\n*WhatsApp Rabta:* wa.me/${workerPhone.replace(/^0/, '92')}\n\nIs tarah ki mazeed khidmat ke liye visit karein: ${window.location.href}`);
+            window.open("https://api.whatsapp.com/send?text=" + shareText, "_blank");
+        }
+
+        window.startVoiceSearch = function() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert("Aap ka browser voice search ko support nahi karta.");
+                return;
+            }
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'ur-PK';
+            let btn = document.getElementById('voiceSearchBtn');
+            
+            recognition.onstart = function() { btn.classList.add('listening'); btn.innerText = "🎙️"; };
+            recognition.onresult = function(event) {
+                let speechResult = event.results[0][0].transcript;
+                document.getElementById('searchNameInput').value = speechResult;
+                resetPaginationAndFilter();
+            };
+            recognition.onerror = function() { alert("Awaaz pehchannay mein masla hua. Dobara koshish karein."); };
+            recognition.onend = function() { btn.classList.remove('listening'); btn.innerText = "🎤"; };
+            recognition.start();
+        }
+
+        async function fetchWorkers() {
+            try {
+                let response = await fetch(SHEET_API_URL);
+                let data = await response.json();
+                if (Array.isArray(data)) {
+                    workers = data;
+                    filterWorkers();
+                }
+            } catch (error) {
+                console.error("Google Sheet Fetch Error: ", error);
+            }
+        }
+
+        async function sendActionToSheet(payload) {
+            try {
+                let response = await fetch(SHEET_API_URL, {
+                    method: "POST",
+                    body: JSON.stringify(payload)
+                });
+                let result = await response.json();
+                fetchWorkers();
+                return result;
+            } catch (err) {
+                console.error("Sheet Action Error:", err);
+            }
+        }
+
+        window.bookWorker = async function(docId, workerName, workerPhone) {
+            let targetWorker = workers.find(w => String(w.id) === String(docId));
+            if (!targetWorker) return;
+
+            let currentJobs = targetWorker.jobsCount ? Number(targetWorker.jobsCount) + 1 : 1;
+            
+            await sendActionToSheet({
+                action: "updateJobs",
+                id: docId,
+                jobsCount: currentJobs
+            });
+
+            let message = encodeURIComponent(`Salam ${workerName}! Mujhe Karachi Rozgar Hub ke zariye aap ki service chahiye (Booking number: ${currentJobs}). Bara-e-karam kaam ki tafseel tay karein. (Note: Is kaam ka 20 rupay commission Admin ko 03161010852 par bhejna lazmi hai)`);
+            let formattedPhone = workerPhone.replace(/^0/, '92');
+            window.open(`https://wa.me/${formattedPhone}?text=${message}`, '_blank');
+        }
+
+        window.resetPaginationAndFilter = function() {
+            itemsToShow = 6;
+            filterWorkers();
+        }
+
+        window.loadMoreWorkers = function() {
+            itemsToShow += 6;
+            filterWorkers();
+        }
+
+        window.filterWorkers = function() {
+            let searchName = document.getElementById('searchNameInput').value.toLowerCase();
+            let filterLoc = document.getElementById('filterLocation').value;
+            let filterCat = document.getElementById('filterCategory').value;
+            let filterSort = document.getElementById('filterSort').value;
+            let container = document.getElementById('workersContainer');
+            let loadMoreContainer = document.getElementById('loadMoreContainer');
+            
+            let filtered = workers.filter(w => {
+                let status = String(w.status || 'approved').toLowerCase();
+                let matchesSearch = (w.name && String(w.name).toLowerCase().includes(searchName)) || 
+                                    (w.category && String(w.category).toLowerCase().includes(searchName)) ||
+                                    (w.details && String(w.details).toLowerCase().includes(searchName));
+                let matchesLoc = filterLoc === "" || w.location === filterLoc;
+                let matchesCat = filterCat === "" || w.category === filterCat;
+                let matchesStatus = (status === 'approved' || status === '');
+
+                return matchesSearch && matchesLoc && matchesCat && matchesStatus;
+            });
+
+            filtered.sort((a, b) => {
+                if (filterSort === "topRated") {
+                    let getRating = (worker) => {
+                        try {
+                            let revs = worker.reviews ? (typeof worker.reviews === 'string' ? JSON.parse(worker.reviews) : worker.reviews) : [];
+                            if (revs.length === 0) return 5.0;
+                            let sum = revs.reduce((acc, r) => acc + Number(r.stars), 0);
+                            return sum / revs.length;
+                        } catch(e) { return 5.0; }
+                    };
+                    return getRating(b) - getRating(a);
+                } else {
+                    return String(b.id).localeCompare(String(a.id));
+                }
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color: #777; grid-column: 1/-1;">${currentLang === 'roman' ? 'Koi mutaliqa service nahi mili.' : 'کوئی متعلقہ سروس نہیں ملی۔'}</p>`;
+                loadMoreContainer.style.display = 'none';
+                return;
+            }
+
+            let paginatedItems = filtered.slice(0, itemsToShow);
+            loadMoreContainer.style.display = filtered.length > itemsToShow ? 'block' : 'none';
+
+            let html = "";
+            paginatedItems.forEach(w => {
+                let status = String(w.status || 'approved').toLowerCase();
+                let cardClass = "worker-card";
+                if (w.category && String(w.category).includes('VIP')) cardClass += " vip-card";
+                else if (w.category && String(w.category).includes('🚨')) cardClass += " emergency-card";
+
+                let reviewsList = [];
+                try {
+                    if (w.reviews) {
+                        reviewsList = typeof w.reviews === 'string' ? JSON.parse(w.reviews) : w.reviews;
+                    }
+                } catch(e) { reviewsList = []; }
+
+                let avgRating = "5.0";
+                let totalReviews = reviewsList.length;
+                if (totalReviews > 0) {
+                    let sum = reviewsList.reduce((acc, r) => acc + Number(r.stars), 0);
+                    avgRating = (sum / totalReviews).toFixed(1);
+                }
+
+                let badgesHtml = "";
+                if (status === 'approved' || !w.status) {
+                    badgesHtml += `<span class="badge-verified" title="Verified Worker">✔️ Verified</span>`;
+                    if (Number(avgRating) >= 4.5 || (w.jobsCount && Number(w.jobsCount) >= 2)) {
+                        badgesHtml += `<span class="badge-top" title="Top Rated Worker">⭐ Top Rated</span>`;
+                    }
+                }
+
+                let reviewsHtml = "";
+                if (totalReviews > 0) {
+                    reviewsList.slice(-2).forEach(r => {
+                        let reviewerName = r.name ? ` (${r.name})` : "";
+                        reviewsHtml += `<div style="font-size:11px; margin-top:3px; opacity:0.85;">⭐ ${r.stars}/5${reviewerName} - "${r.comment}"</div>`;
+                    });
+                } else {
+                    reviewsHtml = `<div style="font-size:11px; opacity:0.6;">${currentLang === 'roman' ? 'Abhi koi review nahi hai.' : 'ابھی کوئی ریویو نہیں ہے۔'}</div>`;
+                }
+
+                html += `
+                    <div class="${cardClass}">
+                        ${w.imageUrl ? `<img src="${w.imageUrl}" class="worker-img" alt="Worker Image">` : ''}
+                        <div>
+                            <h3>${w.name}</h3>
+                            ${badgesHtml}
+                        </div>
+                        <p><strong>${currentLang === 'roman' ? 'Shuba:' : 'شعبہ:'}</strong> ${w.category}</p>
+                        <p><strong>${currentLang === 'roman' ? 'Ilaqa:' : 'علاقہ:'}</strong> ${w.location}</p>
+                        <p><strong>${currentLang === 'roman' ? 'Muawza:' : 'معاوضہ:'}</strong> ${w.rate}</p>
+                        <p><strong>${currentLang === 'roman' ? 'Score:' : 'اسکور:'}</strong> ⭐ ${avgRating} (${totalReviews} ${currentLang === 'roman' ? 'reviews' : 'ریویوز'})</p>
+                        <p><strong>${currentLang === 'roman' ? 'Tafseel:' : 'تفصیل:'}</strong> ${w.details || (currentLang === 'roman' ? 'Koi azafi tafseel nahi' : 'کوئی اضافی تفصیل نہیں')}</p>
+                        
+                        <button class="booking-btn" onclick="bookWorker('${w.id}', '${w.name}', '${w.phone}')">${currentLang === 'roman' ? '📞 Booking Karein aur Rabta Karein' : '📞 بکنگ کریں اور رابطہ کریں'}</button>
+                        <button class="card-share-btn" onclick="shareWorkerCard('${w.name}', '${w.category}', '${w.phone}', '${w.rate}')">📤 ${currentLang === 'roman' ? 'Profile Share Karein' : 'پروفائل واٹس ایپ پر شیئر کریں'}</button>
+
+                        <div class="review-section">
+                            <strong>${currentLang === 'roman' ? 'Customers ke Tabsare:' : 'کسٹمرز کے تبصرے:'}</strong>
+                            ${reviewsHtml}
+                            <div style="margin-top: 8px;">
+                                <input type="text" id="reviewerName-${w.id}" placeholder="${currentLang === 'roman' ? 'Apka naam...' : 'آپ کا نام...'}" style="padding:6px; margin:2px 0;">
+                                <select id="ratingStars-${w.id}">
+                                    <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                                    <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                                    <option value="3">⭐⭐⭐ (3/5)</option>
+                                    <option value="2">⭐⭐ (2/5)</option>
+                                    <option value="1">⭐ (1/5)</option>
+                                </select>
+                                <input type="text" id="ratingComment-${w.id}" placeholder="${currentLang === 'roman' ? 'Apna tabsera likhein...' : 'اپنا تبصرہ لکھیں...'}" style="padding:6px; margin:2px 0;">
+                                <button class="review-submit-btn" onclick="initiateReview(${w.id})">${currentLang === 'roman' ? 'Review Jama Karein' : 'ریویو جمع کریں'}</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        window.initiateReview = function(docId) {
+            let reviewerName = document.getElementById(`reviewerName-${docId}`).value.trim() || "Na-maloom";
+            let stars = document.getElementById(`ratingStars-${docId}`).value;
+            let comment = document.getElementById(`ratingComment-${docId}`).value.trim();
+
+            if (!comment) {
+                alert("Bara-e-karam tabsera zaroor likhein.");
+                return;
+            }
+
+            pendingReviewData = { docId, reviewerName, stars: Number(stars), comment };
+            document.getElementById('customerPhoneInput').value = "";
+            document.getElementById('otpCodeInput').value = "1234";
+            document.getElementById('otpStepTwo').style.display = "block";
+            document.getElementById('otpActionBtn').innerText = "Verify aur Submit Karein";
+            document.getElementById('otpModal').style.display = "flex";
+        }
+
+        window.handleOtpAction = async function() {
+            let phoneInput = document.getElementById('customerPhoneInput').value.trim();
+            let phoneRegex = /^03[0-9]{9}$/;
+
+            if (!phoneRegex.test(phoneInput)) {
+                alert("Baraye karam theek Pakistani number likhein jo '03' se shuru ho (misal: 03001234567).");
+                return;
+            }
+
+            let { docId, reviewerName, stars, comment } = pendingReviewData;
+            let targetWorker = workers.find(w => String(w.id) === String(docId));
+            if (!targetWorker) return;
+
+            let reviewsList = [];
+            try {
+                if (targetWorker.reviews) {
+                    reviewsList = typeof targetWorker.reviews === 'string' ? JSON.parse(targetWorker.reviews) : targetWorker.reviews;
+                }
+            } catch(e) { reviewsList = []; }
+
+            reviewsList.push({ name: reviewerName, stars: stars, comment: comment, phone: phoneInput });
+
+            await sendActionToSheet({
+                action: "updateReviews",
+                id: docId,
+                reviews: JSON.stringify(reviewsList)
+            });
+
+            alert("🎉 Shukriya! Aap ka review kamiyabi ke sath shamil kar diya gaya hai.");
+            closeOtpModal();
+        }
+
+        function compressImage(file, maxWidth = 500, quality = 0.6) {
+            return new Promise((resolve) => {
+                if (!file) {
+                    resolve("");
+                    return;
+                }
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = event => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = () => resolve(event.target.result);
+                };
+                reader.onerror = () => resolve("");
+            });
+        }
+
+        document.getElementById('workerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            let phoneVal = document.getElementById('phone').value.trim();
+            let phoneRegex = /^03[0-9]{9}$/;
+            if (!phoneRegex.test(phoneVal)) {
+                alert("Ghalat Phone Number! Baraye karam theek Pakistani WhatsApp number likhein jo '03' se shuru ho aur 11 digits ka ho (misal: 03001234567).");
+                return;
+            }
+
+            let submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Tasveerein compress ho rahi hain aur data upload ho raha hai...";
+
+            let imageFile = document.getElementById('workerImage').files[0];
+            let proofFile = document.getElementById('commissionProofImage').files[0];
+            let workerName = document.getElementById('name').value;
+
+            try {
+                let workerImageUrl = await compressImage(imageFile, 500, 0.6);
+                let proofImageUrl = await compressImage(proofFile, 500, 0.6);
+
+                let newWorker = {
+                    action: "addWorker",
+                    id: "ID_" + Date.now(),
+                    name: workerName,
+                    category: document.getElementById('category').value,
+                    location: document.getElementById('location').value,
+                    rate: document.getElementById('rate').value,
+                    phone: phoneVal,
+                    imageUrl: workerImageUrl,
+                    proofUrl: proofImageUrl,
+                    details: document.getElementById('details').value,
+                    status: 'pending',
+                    reviews: JSON.stringify([]),
+                    jobsCount: 0,
+                    commissionStatus: "Paid",
+                    createdAt: new Date().toISOString()
+                };
+
+                await sendActionToSheet(newWorker);
+                alert("🎉 Mubarak ho! Aap ki profile kamiyabi se Google Sheet par darj ho gayi hai. Admin ki manzoori ke baad yeh public list mein zahir ho jayegi.");
+                document.getElementById('workerForm').reset();
+                
+                let adminAlertMsg = encodeURIComponent(`🚨 Naya Registration Alert!\n\n${workerName} ne Karachi Rozgar Hub par apni profile register ki hai. Bara-e-karam AppSheet se iska jaiza lein aur manzoor karein.`);
+                window.open(`https://wa.me/923161010852?text=${adminAlertMsg}`, '_blank');
+
+            } catch (err) {
+                console.error(err);
+                alert("Form jama karane mein kharabi paish aayi: " + err.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Muft Mein Register Karein";
+            }
+        });
+    </script>
+</body>
+</html>
