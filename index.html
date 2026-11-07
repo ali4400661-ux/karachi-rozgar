@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ur" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
@@ -67,9 +67,32 @@
             font-family: inherit;
         }
         .top-btn:hover { background: rgba(255, 255, 255, 0.35); }
-        header h1 { margin: 0; font-size: 24px; }
-        header p { margin: 10px 0 0; font-size: 13.5px; opacity: 0.95; }
+        header h1 { margin: 0; font-size: 26px; }
+        header p { margin: 10px 0 0; font-size: 14px; opacity: 0.95; }
         .container { width: 92%; max-width: 1000px; margin: 25px auto; }
+        
+        .install-banner {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            display: none;
+        }
+        .install-banner button {
+            background: white;
+            color: #16a34a;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
         .box {
             background: var(--box-bg);
             border: 1px solid var(--border-color);
@@ -189,12 +212,20 @@
             <button class="top-btn" id="langToggleBtn" onclick="toggleLanguage()">English / اردو</button>
             <button class="top-btn" id="themeToggleBtn" onclick="toggleTheme()">🌙</button>
         </div>
-        <h1 id="mainTitle">Karachi Rozgar - VIP Service & Emergency Hub</h1>
+        <h1 id="mainTitle">Karachi Rozgar - All-in-One VIP Service & Emergency Hub</h1>
         <p id="mainSubtitle">Mistri, Mazdoor, Solar Repair, Emergency Electrician aur Shadi Transport</p>
     </header>
 
     <div class="container">
         
+        <div id="installBanner" class="install-banner">
+            <div>
+                <strong style="display:block; font-size:15px;">📱 Karachi Rozgar App Install Karein</strong>
+                <span style="font-size:12.5px; opacity:0.9;">Apni home screen par aik click mein app lagayein!</span>
+            </div>
+            <button id="installBtn">Install App</button>
+        </div>
+
         <div class="box">
             <h3 id="searchHeading" style="margin-top:0; font-size:18px;">🔍 Talash Karein (Naam ya Awaz ke zariye)</h3>
             <div class="search-box-wrapper">
@@ -260,7 +291,7 @@
 
         <h2 id="listHeading" style="font-size:22px; margin-bottom:15px;">📋 Dastyab Khidmat ki List</h2>
         <div class="workers-grid" id="workersContainer">
-            <p style="text-align:center; color: #777; grid-column: 1/-1;">⏳ Loading...</p>
+            <p style="text-align:center; color: #777; grid-column: 1/-1;" id="loadingText">⏳ Loading...</p>
         </div>
     </div>
 
@@ -280,6 +311,27 @@
         let workers = [];
         let currentLang = 'ur';
         let pendingReviewData = null;
+        let deferredPrompt = null;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBanner').style.display = 'flex';
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let installBtn = document.getElementById('installBtn');
+            if (installBtn) {
+                installBtn.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        await deferredPrompt.userChoice;
+                        deferredPrompt = null;
+                        document.getElementById('installBanner').style.display = 'none';
+                    }
+                });
+            }
+        });
 
         window.onload = function() {
             if (localStorage.getItem("karachiTheme") === "dark") {
@@ -341,8 +393,14 @@
             try {
                 let res = await fetch(SHEET_API_URL);
                 let data = await res.json();
-                if (Array.isArray(data)) { workers = data; filterWorkers(); }
-            } catch (err) { console.error(err); }
+                if (Array.isArray(data)) { 
+                    workers = data; 
+                    filterWorkers(); 
+                }
+            } catch (err) { 
+                console.error(err);
+                document.getElementById('workersContainer').innerHTML = `<p style="text-align:center; color: #dc2626; grid-column: 1/-1;">Data load karne mein masla hua. Baraye karam connection check karein.</p>`;
+            }
         }
 
         async function sendAction(payload) {
@@ -361,7 +419,7 @@
             let filtered = workers.filter(w => {
                 let status = String(w.status || 'approved').toLowerCase();
                 if (status === 'blocked') return false;
-                let matchQuery = !query || w.name.toLowerCase().includes(query) || w.category.toLowerCase().includes(query);
+                let matchQuery = !query || (w.name && w.name.toLowerCase().includes(query)) || (w.category && w.category.toLowerCase().includes(query));
                 let matchLoc = !loc || w.location === loc;
                 let matchCat = !cat || w.category === cat;
                 return matchQuery && matchLoc && matchCat;
@@ -390,7 +448,7 @@
                         ${w.experience ? `<p><strong>Tajurba:</strong> ${w.experience}</p>` : ''}
                         <p><strong>Muawza:</strong> ${w.rate}</p>
                         <p><strong>Tafseel:</strong> ${w.details || 'N/A'}</p>
-                        <button class="booking-btn" onclick="window.open('https://wa.me/${w.phone.replace(/^0/, '92')}?text=Salam! Mujhe Karachi Rozgar se service chahiye.', '_blank')">📞 WhatsApp Rabta</button>
+                        <button class="booking-btn" onclick="window.open('https://wa.me/${String(w.phone || '').replace(/^0/, '92')}?text=Salam! Mujhe Karachi Rozgar se service chahiye.', '_blank')">📞 WhatsApp Rabta</button>
                         
                         <div class="review-section">
                             <strong>Tabsare:</strong>
@@ -451,6 +509,8 @@
                 details: document.getElementById('details').value,
                 status: 'pending',
                 reviews: JSON.stringify([]),
+                imageUrl: "",
+                proofUrl: "",
                 createdAt: new Date().toISOString()
             };
 
@@ -461,6 +521,3 @@
     </script>
 </body>
 </html>
-<style>body{
-  background-color:powderblue;
-}</style>
