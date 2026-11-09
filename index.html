@@ -1,0 +1,455 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ur" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Karachi Mistri Hub</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#090d16">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #090d16; color: #f8fafc; padding-bottom: 75px; user-select: none; }
+        
+        .app-header { background: linear-gradient(135deg, #1e293b, #0f172a); color: white; padding: 16px 20px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        .app-title { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px; color: #38bdf8; }
+        .share-btn { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); color: #38bdf8; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; cursor: pointer; }
+
+        .notice-card { background: #1e293b; border-left: 4px solid #f59e0b; color: #fbbf24; padding: 12px 16px; margin: 12px 16px 0 16px; border-radius: 12px; font-size: 11px; line-height: 1.4; border: 1px solid #334155; }
+
+        /* Toolbar */
+        .toolbar { padding: 14px 16px; display: flex; gap: 8px; align-items: center; background: #090d16; }
+        .search-box { flex: 1; display: flex; align-items: center; background: #1e293b; border-radius: 14px; padding: 0 12px; border: 1px solid #334155; height: 42px; }
+        .search-box input { width: 100%; border: none; background: transparent; font-size: 12px; outline: none; color: white; font-weight: 500; }
+        .search-box input::placeholder { color: #64748b; }
+        .area-select { padding: 0 10px; border-radius: 14px; border: 1px solid #334155; background: #1e293b; font-size: 11px; font-weight: 700; color: #cbd5e1; outline: none; cursor: pointer; height: 42px; }
+
+        .category-bar { display: flex; overflow-x: auto; padding: 0 16px 14px 16px; gap: 8px; scrollbar-width: none; background: #090d16; }
+        .category-bar::-webkit-scrollbar { display: none; }
+        .cat-btn { background: #1e293b; border: 1px solid #334155; padding: 6px 12px; border-radius: 12px; font-size: 11px; font-weight: 700; color: #94a3b8; white-space: nowrap; cursor: pointer; }
+        .cat-btn.active { background: #38bdf8; color: #0f172a; border-color: #38bdf8; }
+
+        .directory-container { padding: 0 16px; }
+        .worker-box { background: #1e293b; border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #334155; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .worker-details h3 { font-size: 15px; color: white; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+        .verified-tag { color: #38bdf8; font-size: 10px; background: rgba(56,189,248,0.1); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(56,189,248,0.2); }
+        .worker-details p { font-size: 12px; color: #94a3b8; margin-top: 4px; font-weight: 500; }
+        .worker-rate { color: #34d399 !important; font-weight: 700 !important; }
+        
+        .worker-actions { display: flex; flex-direction: column; gap: 6px; min-width: 80px; }
+        .action-link { padding: 7px 10px; border-radius: 10px; font-size: 11px; font-weight: 800; text-decoration: none; text-align: center; color: white; border: none; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .btn-call { background: #38bdf8; color: #0f172a; }
+        .btn-wa { background: #10b981; }
+
+        .app-section { margin: 16px; display: none; }
+        .info-card { background: #1e293b; margin-bottom: 12px; padding: 18px; border-radius: 18px; border: 1px solid #334155; }
+        .info-card h3 { font-size: 15px; color: #38bdf8; margin-bottom: 8px; font-weight: 800; }
+        .info-card p { font-size: 12px; color: #94a3b8; line-height: 1.5; font-weight: 500; }
+
+        .input-box { width: 100%; padding: 13px 14px; margin-bottom: 12px; border: 1px solid #334155; border-radius: 12px; font-size: 13px; outline: none; background: #0f172a; color: white; font-weight: 500; }
+        .submit-btn { background: #38bdf8; color: #0f172a; border: none; padding: 13px; width: 100%; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 4px 15px rgba(56,189,248,0.2); }
+
+        .portal-card { background: #1e293b; margin: 16px; padding: 22px; border-radius: 20px; border: 1px solid #334155; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: none; }
+        .portal-tabs { display: flex; margin-bottom: 18px; background: #0f172a; border-radius: 12px; padding: 4px; border: 1px solid #334155; }
+        .portal-tab { flex: 1; padding: 10px; text-align: center; font-size: 12px; font-weight: 800; border: none; background: transparent; color: #94a3b8; cursor: pointer; border-radius: 10px; transition: all 0.2s; }
+        .portal-tab.active { background: #1e293b; color: #38bdf8; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #0f172a; display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid #1e293b; box-shadow: 0 -4px 20px rgba(0,0,0,0.5); z-index: 100; }
+        .nav-item { text-align: center; font-size: 10px; color: #64748b; text-decoration: none; font-weight: 700; cursor: pointer; background: none; border: none; flex: 1; }
+        .nav-item.active { color: #38bdf8; }
+        .nav-item span { display: block; font-size: 18px; margin-bottom: 2px; }
+
+        .loading-box { text-align: center; color: #64748b; margin-top: 40px; font-weight: 600; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+    <div class="app-header">
+        <div class="app-title">⚡ Karachi Mistri Hub</div>
+        <button class="share-btn" onclick="triggerHaptic(20); shareApp();">📤 Share</button>
+    </div>
+
+    <div class="notice-card">
+        ⚠️ <b>Note:</b> Customer ke liye app 100% muft hai. Direct Call ya WhatsApp karein!
+    </div>
+
+    <!-- HOME VIEW -->
+    <div id="homeView">
+        <div class="toolbar">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Naam ya kaam search karein..." onkeyup="filterWorkers()">
+            </div>
+            <select id="areaFilter" class="area-select" onchange="triggerHaptic(10); filterWorkers()">
+                <option value="All">📍 Saare Ilaqay</option>
+                <option value="Gulshan">Gulshan</option>
+                <option value="Jauhar">Jauhar</option>
+                <option value="Nazimabad">Nazimabad</option>
+                <option value="DHA">DHA / Clifton</option>
+                <option value="Malir">Malir</option>
+                <option value="Korangi">Korangi</option>
+            </select>
+        </div>
+
+        <div class="category-bar">
+            <button class="cat-btn active" onclick="triggerHaptic(10); filterCategory('All', this)">🌟 All</button>
+            <button class="cat-btn" onclick="triggerHaptic(10); filterCategory('Mazdoor', this)">👷 Mazdoor</button>
+            <button class="cat-btn" onclick="triggerHaptic(10); filterCategory('Mistri', this)">🧱 Mistri</button>
+            <button class="cat-btn" onclick="triggerHaptic(10); filterCategory('Plumber', this)">🚰 Plumber</button>
+            <button class="cat-btn" onclick="triggerHaptic(10); filterCategory('Electrician', this)">⚡ Electrician</button>
+            <button class="cat-btn" onclick="triggerHaptic(10); filterCategory('AC Technician', this)">❄️ AC Tech</button>
+            <button class="cat-btn" onclick="triggerHaptic(10); filterCategory('Emergency', this)">🚨 Emergency</button>
+        </div>
+
+        <div class="directory-container" id="workerList">
+            <div class="loading-box">Data load ho raha hai...</div>
+        </div>
+    </div>
+
+    <!-- WORKER PORTAL -->
+    <div id="portalView" style="display:none;">
+        <div class="portal-card" id="authBox">
+            <div class="portal-tabs">
+                <button class="portal-tab active" id="tabLoginBtn" onclick="triggerHaptic(10); switchAuth('login')">Karigar Login</button>
+                <button class="portal-tab" id="tabRegBtn" onclick="triggerHaptic(10); switchAuth('reg')">Naya Account</button>
+            </div>
+
+            <div id="loginSection">
+                <input type="text" id="loginPhone" class="input-box" placeholder="Phone Number (e.g. 03001234567)">
+                <input type="password" id="loginPass" class="input-box" placeholder="Password">
+                <button class="submit-btn" onclick="triggerHaptic(25); executeLogin()" style="margin-bottom:8px;">Profile Kholein</button>
+                <p style="text-align:center;"><a href="#" onclick="recoverPassword()" style="font-size:12px; color:#38bdf8; text-decoration:none; font-weight:700;">Password Bhool Gaye?</a></p>
+            </div>
+
+            <div id="regSection" style="display:none;">
+                <input type="text" id="regName" class="input-box" placeholder="Aapka Poora Naam">
+                <input type="text" id="regPhone" class="input-box" placeholder="Mobile Number (e.g. 03001234567)">
+                <input type="password" id="regPass" class="input-box" placeholder="Password Set Karein">
+                <button class="submit-btn" style="background:#10b981; color:white;" onclick="triggerHaptic(25); executeRegister()">Account Banayein</button>
+            </div>
+        </div>
+
+        <div class="portal-card" id="dashboardBox">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h2 style="color:#38bdf8; font-size:17px;">👤 Karigar Dashboard</h2>
+                <button onclick="triggerHaptic(20); executeLogout()" style="background:#ef4444; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:800; cursor:pointer;">Logout</button>
+            </div>
+            <div id="dashboardContent"></div>
+        </div>
+    </div>
+
+    <!-- HELP VIEW -->
+    <div id="faqView" class="app-section">
+        <div class="info-card">
+            <h3>❓ Madad & Maloomat</h3>
+            <p>Yeh app Karachi ke logon ke liye banai gayi hai taake baghair kisi commission ke direct karigaron se rabta kiya ja sake.</p>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div class="bottom-nav">
+        <button class="nav-item active" onclick="triggerHaptic(15); switchNav('home')"><span>⚡</span>Directory</button>
+        <button class="nav-item" onclick="triggerHaptic(15); switchNav('portal')"><span>👤</span>Karigar Portal</button>
+        <button class="nav-item" onclick="triggerHaptic(15); switchNav('faq')"><span>❓</span>Help</button>
+    </div>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbxOCWBq0B-vL01jTpQ-UJqXWiccodh9CSt6yo3AFMmtqu6-gnmUnUt5y5_CDWcWgusBTQ/exec";
+        let masterWorkers = JSON.parse(localStorage.getItem('cachedWorkers') || '[]');
+        let activeCategory = 'All';
+        let loggedWorkerPhone = localStorage.getItem('karachiHubLoggedPhone') || '';
+
+        function triggerHaptic(duration = 15) {
+            if ("vibrate" in navigator) { navigator.vibrate(duration); }
+        }
+
+        if(masterWorkers.length > 0) {
+            renderDirectory(masterWorkers);
+        }
+
+        function loadDirectory() {
+            fetch(API_URL)
+                .then(res => res.json())
+                .then(response => {
+                    masterWorkers = response.workers || response;
+                    localStorage.setItem('cachedWorkers', JSON.stringify(masterWorkers));
+                    renderDirectory(masterWorkers);
+                    checkSession();
+                })
+                .catch(err => {
+                    if(masterWorkers.length === 0) {
+                        document.getElementById('workerList').innerHTML = '<p style="text-align:center; color:#ef4444; margin-top:30px;">Connection Error.</p>';
+                    }
+                });
+        }
+
+        function renderDirectory(list) {
+            let container = document.getElementById('workerList');
+            container.innerHTML = '';
+
+            let validWorkers = list.filter(w => {
+                let cat = String(w.category || '').trim();
+                return cat && cat !== "Not Registered" && String(w.status || '').toLowerCase() !== 'blocked';
+            });
+
+            if (validWorkers.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#64748b; margin-top:40px;">Koi karigar mojood nahi hai.</p>';
+                return;
+            }
+
+            validWorkers.forEach(w => {
+                let workerRate = w.rate || 'Tay nahi';
+                container.innerHTML += `
+                    <div class="worker-box">
+                        <div class="worker-details">
+                            <h3>${w.name || 'Naam nahi'} <span class="verified-tag">✔ Verified</span></h3>
+                            <p>🔧 <b>${w.category}</b></p>
+                            <p>📍 ${w.location || 'Karachi'}, Karachi</p>
+                            <p class="worker-rate">💰 Rate: ${workerRate}</p>
+                        </div>
+                        <div class="worker-actions">
+                            <a href="tel:+${w.phone}" onclick="triggerHaptic(20)" class="action-link btn-call">📞 Call</a>
+                            <a href="https://wa.me/${w.phone}?text=Salam%20${w.name}!%20Maine%20aapka%20number%20Karachi%20Mistri%20Hub%20par%20dekha%20hai." target="_blank" onclick="triggerHaptic(20)" class="action-link btn-wa">💬 WhatsApp</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterWorkers() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let area = document.getElementById('areaFilter').value;
+
+            let filtered = masterWorkers.filter(w => {
+                let catCheck = String(w.category || '').trim();
+                if(!catCheck || catCheck === "Not Registered" || String(w.status || '').toLowerCase() === 'blocked') return false;
+
+                let name = (w.name || '').toLowerCase();
+                let loc = (w.location || '').toLowerCase();
+                let cat = (w.category || '').toLowerCase();
+
+                let matchCat = (activeCategory === 'All' || cat.includes(activeCategory.toLowerCase()));
+                let matchQuery = (name.includes(query) || loc.includes(query) || cat.includes(query));
+                let matchArea = (area === 'All' || loc.includes(area.toLowerCase()));
+
+                return matchCat && matchQuery && matchArea;
+            });
+            renderDirectory(filtered);
+        }
+
+        function filterCategory(catName, btnEl) {
+            activeCategory = catName;
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            if(btnEl) btnEl.classList.add('active');
+            filterWorkers();
+        }
+
+        function switchNav(tabID) {
+            ['homeView', 'portalView', 'faqView'].forEach(v => {
+                document.getElementById(v).style.display = 'none';
+            });
+            document.querySelectorAll('.nav-item').forEach(t => t.classList.remove('active'));
+
+            if(tabID === 'home') {
+                document.getElementById('homeView').style.display = 'block';
+                event.currentTarget.classList.add('active');
+            } else if(tabID === 'portal') {
+                document.getElementById('portalView').style.display = 'block';
+                checkSession();
+                event.currentTarget.classList.add('active');
+            } else if(tabID === 'faq') {
+                document.getElementById('faqView').style.display = 'block';
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        function switchAuth(mode) {
+            if(mode === 'login') {
+                document.getElementById('loginSection').style.display = 'block';
+                document.getElementById('regSection').style.display = 'none';
+                document.getElementById('tabLoginBtn').classList.add('active');
+                document.getElementById('tabRegBtn').classList.remove('active');
+            } else {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('regSection').style.display = 'block';
+                document.getElementById('tabRegBtn').classList.add('active');
+                document.getElementById('tabLoginBtn').classList.remove('active');
+            }
+        }
+
+        function executeRegister() {
+            let name = document.getElementById('regName').value.trim();
+            let phone = document.getElementById('regPhone').value.trim();
+            let pass = document.getElementById('regPass').value.trim();
+
+            if(!name || !phone || !pass) {
+                alert('Saari fields fill karein!');
+                return;
+            }
+
+            let payload = { action: "register", name: name, category: "Not Registered", location: "Karachi", rate: "Tay nahi", phone: phone, password: pass };
+            alert('Account ban raha hai...');
+
+            fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) })
+            .then(res => res.text())
+            .then(res => {
+                alert('Account ban gaya! Ab apni profile aur rate set karein.');
+                loggedWorkerPhone = phone;
+                localStorage.setItem('karachiHubLoggedPhone', phone);
+                loadDirectory();
+                setTimeout(() => {
+                    let u = masterWorkers.find(x => String(x.phone).trim() === phone);
+                    if(u) renderDashboard(u);
+                }, 1000);
+            });
+        }
+
+        function executeLogin() {
+            let phone = document.getElementById('loginPhone').value.trim();
+            let pass = document.getElementById('loginPass').value.trim();
+
+            if(!phone || !pass) {
+                alert('Phone number aur password likhein!');
+                return;
+            }
+
+            let cleanPhone = phone.replace(/^(\+92|92|0)/, '');
+            let found = masterWorkers.find(w => String(w.phone || '').trim().replace(/^(\+92|92|0)/, '') === cleanPhone);
+
+            if(!found) {
+                alert('Is number par account nahi mila.');
+                return;
+            }
+            if(found.password && String(found.password).trim() !== pass) {
+                alert('Ghalat password!');
+                return;
+            }
+
+            loggedWorkerPhone = found.phone;
+            localStorage.setItem('karachiHubLoggedPhone', found.phone);
+            renderDashboard(found);
+        }
+
+        function renderDashboard(workerObj) {
+            document.getElementById('authBox').style.display = 'none';
+            document.getElementById('dashboardBox').style.display = 'block';
+
+            let cat = String(workerObj.category || '').trim();
+            let content = document.getElementById('dashboardContent');
+
+            if(!cat || cat === "Not Registered") {
+                content.innerHTML = `
+                    <div style="background:rgba(245,158,11,0.1); border:1px solid #f59e0b; color:#fbbf24; padding:12px; border-radius:10px; font-size:12px; margin-bottom:12px; font-weight:600;">⚠️ Apna kaam aur apna rate darj karein:</div>
+                    <input type="text" id="myCategory" class="input-box" placeholder="Category (Mistri / Plumber / Electrician)">
+                    <input type="text" id="myLocation" class="input-box" placeholder="Karachi ka Ilaqa (e.g. Gulshan)">
+                    <input type="text" id="myRate" class="input-box" placeholder="Aapka Rate / Dihaari (e.g. Rs. 2,000 / day)">
+                    <button class="submit-btn" style="background:#10b981; color:white;" onclick="triggerHaptic(25); saveProfile('${workerObj.name}', '${workerObj.phone}', '${workerObj.password}')">Profile & Rate Live Karein</button>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div style="background:#0f172a; padding:16px; border-radius:14px; font-size:13px; line-height:1.6; border:1px solid #334155;">
+                        <p><b>Naam:</b> ${workerObj.name}</p>
+                        <p><b>Category:</b> ${workerObj.category}</p>
+                        <p><b>Ilaqa:</b> ${workerObj.location}, Karachi</p>
+                        <p style="color:#34d399;"><b>Aapka Rate:</b> ${workerObj.rate || 'Tay nahi'}</p>
+                        <p><b>Phone:</b> ${workerObj.phone}</p>
+                        <hr style="margin:12px 0; border:0; border-top:1px solid #334155;">
+                        <p style="color:#38bdf8; margin-bottom:8px; font-weight:700;">🔄 Apna Rate Tabdeel Karein:</p>
+                        <input type="text" id="updateRateInput" class="input-box" placeholder="Naya Rate (e.g. Rs. 2,500 / day)" value="${workerObj.rate || ''}">
+                        <button class="submit-btn" style="background:#38bdf8; color:#0f172a;" onclick="triggerHaptic(25); updateWorkerRate('${workerObj.name}', '${workerObj.category}', '${workerObj.location}', '${workerObj.phone}', '${workerObj.password}')">Rate Update Karein</button>
+                    </div>
+                `;
+            }
+        }
+
+        function saveProfile(name, phone, pass) {
+            let cat = document.getElementById('myCategory').value.trim();
+            let loc = document.getElementById('myLocation').value.trim();
+            let rate = document.getElementById('myRate').value.trim();
+
+            if(!cat || !loc || !rate) {
+                alert('Category, ilaqa aur rate teeno likhein!');
+                return;
+            }
+
+            let payload = { action: "register", name: name, category: cat, location: loc, rate: rate, phone: phone, password: pass };
+            alert('Profile live ho rahi hai...');
+
+            fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) })
+            .then(res => res.text())
+            .then(res => {
+                alert('Mubarak ho! Aapki profile aur rate live ho gaye hain.');
+                loadDirectory();
+                setTimeout(() => {
+                    let u = masterWorkers.find(x => String(x.phone).trim() === phone);
+                    if(u) renderDashboard(u);
+                }, 1000);
+            });
+        }
+
+        function updateWorkerRate(name, category, location, phone, password) {
+            let newRate = document.getElementById('updateRateInput').value.trim();
+            if(!newRate) {
+                alert('Naya rate likhein!');
+                return;
+            }
+
+            let payload = { action: "register", name: name, category: category, location: location, rate: newRate, phone: phone, password: password };
+            alert('Rate update ho raha hai...');
+
+            fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) })
+            .then(res => res.text())
+            .then(res => {
+                alert('Mubarak ho! Aapka naya rate live ho gaya hai.');
+                loadDirectory();
+                setTimeout(() => {
+                    let u = masterWorkers.find(x => String(x.phone).trim() === phone);
+                    if(u) renderDashboard(u);
+                }, 1000);
+            });
+        }
+
+        function executeLogout() {
+            loggedWorkerPhone = '';
+            localStorage.removeItem('karachiHubLoggedPhone');
+            document.getElementById('dashboardBox').style.display = 'none';
+            document.getElementById('authBox').style.display = 'block';
+            document.getElementById('loginPhone').value = '';
+            document.getElementById('loginPass').value = '';
+        }
+
+        function checkSession() {
+            if(loggedWorkerPhone) {
+                let clean = loggedWorkerPhone.replace(/^(\+92|92|0)/, '');
+                let found = masterWorkers.find(w => String(w.phone || '').trim().replace(/^(\+92|92|0)/, '') === clean);
+                if(found) {
+                    renderDashboard(found);
+                    return;
+                }
+            }
+            document.getElementById('authBox').style.display = 'block';
+            document.getElementById('dashboardBox').style.display = 'none';
+        }
+
+        function recoverPassword() {
+            triggerHaptic(15);
+            let p = prompt("Apna registered mobile number likhein:");
+            if(!p) return;
+            let found = masterWorkers.find(w => String(w.phone || '').includes(p));
+            if(found && found.password) alert(`Aapka password yeh hai: ${found.password}`);
+            else alert('Is number par koi record nahi mila.');
+        }
+
+        function shareApp() {
+            if (navigator.share) {
+                navigator.share({ title: 'Karachi Mistri Hub', text: 'Karachi ke behtareen mistri aur mazdoor dhoondhein!', url: window.location.href });
+            } else {
+                prompt("App ka link copy kar lein:", window.location.href);
+            }
+        }
+
+        loadDirectory();
+    </script>
+</body>
+</html>
